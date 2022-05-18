@@ -1,0 +1,234 @@
+{
+	"info": {
+		"_postman_id": "24e2e1d5-8819-46fc-b8c3-99fc6a444b13",
+		"name": "Test Suite #5: Scripts Assertions (Practice)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "JSON y Tipos de Valores",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const elpanaJason = pm.response.json();\r",
+							"const suPueblo = elpanaJason.trello\r",
+							"const suCasa = elpanaJason.trello[0]\r",
+							"const suNombre = elpanaJason.trello[0].name\r",
+							"const suCara = elpanaJason.trello[0].native\r",
+							"const susGatos = elpanaJason.trello[0].sheetX\r",
+							"const suNovia = elpanaJason.trello[0].texts\r",
+							"const suTDC = elpanaJason.saipay\r",
+							"const suMejorAmigo = elpanaJason.trello[0].keywords[1]\r",
+							"const susPanas = elpanaJason.trello[0].keywords\r",
+							"\r",
+							"pm.test(\"Esto debe ser un Objeto\",()=>{\r",
+							"    pm.expect(elpanaJason).to.be.an(\"object\")\r",
+							"});\r",
+							"pm.test(\"Esto debe ser un Array\",()=>{\r",
+							"    pm.expect(suPueblo).to.be.an(\"array\")\r",
+							"});\r",
+							"pm.test(\"Esto debe ser un Objeto Casa\",()=>{\r",
+							"    pm.expect(suCasa).to.be.an(\"object\")\r",
+							"});\r",
+							"pm.test(\"Esto debe ser un Nombre String\",()=>{\r",
+							"    pm.expect(suNombre).to.be.a(\"string\").and.to.be.eql(\"GRINNING FACE\")\r",
+							"});\r",
+							"pm.test(\"Esto debe ser un Emoji String\",()=>{\r",
+							"    pm.expect(suCara).to.be.a(\"string\").and.to.be.eql(\"😀\")\r",
+							"});\r",
+							"pm.test(\"Esto debe ser un Número\",()=>{\r",
+							"    pm.expect(susGatos).to.be.a(\"number\").and.to.be.eql(30)\r",
+							"});\r",
+							"pm.test(\"Esto debe ser una Novia que no tiene\",()=>{\r",
+							"    pm.expect(suNovia).to.be.null\r",
+							"});\r",
+							"pm.test(\"Esto debe ser una TDC\",()=>{\r",
+							"    pm.expect(suTDC).to.be.undefined\r",
+							"});\r",
+							"pm.test(\"Esto debe ser un valor dentro de un Array\",()=>{\r",
+							"    pm.expect(suMejorAmigo).to.be.oneOf([\"grin\", \"facebook\", \"saitest\", \"pompeya\"]).and.to.be.an(\"string\")\r",
+							"});\r",
+							"pm.test(\"Esto debe ser un Array que tiene un valor\",()=>{\r",
+							"    pm.expect(susPanas).to.include(\"face\").and.to.be.an(\"array\")\r",
+							"});\r",
+							"\r",
+							"console.log(suCasa);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dom}}/emoji",
+					"host": [
+						"{{dom}}"
+					],
+					"path": [
+						"emoji"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Objetos y Objetos de Arrays",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//NEXT CLASS: EL Assertion \".include\"\r",
+							"const elpanaJason = pm.response.json();\r",
+							"const suPueblo = elpanaJason.trello\r",
+							"const suCasa = elpanaJason.trello[0]\r",
+							"\r",
+							"//funciona como un LIKE de SQL también\r",
+							"pm.test(\"Validar valor contenga las iniciales\",()=>{\r",
+							"    pm.expect(suCasa.name).to.include(\"FAC\")\r",
+							"});\r",
+							"\r",
+							"//Object full validation; validar propiedades dentro de un objeto\r",
+							"const id = \"1F601\"\r",
+							"const name = \"GRINNING FACE WITH SMILING EYES\"\r",
+							"const emoji = \"😁\"\r",
+							"const short = \"grin\"\r",
+							"const myTest = {\r",
+							"    \"unified\": id,\r",
+							"    \"name\": name,\r",
+							"    \"native\": emoji,\r",
+							"    \"shortName\": short\r",
+							"};\r",
+							"pm.test(\"Debería contener un valor dentro del objeto\",()=>{\r",
+							"    pm.expect(ActualResult).to.include(myTest)\r",
+							"});\r",
+							"\r",
+							"//Find funtion, encontrar una propiedad o valor dentro de un array\r",
+							"const findMyTest = body.trello.find(i=>i.native===\"😎\")\r",
+							"\r",
+							"pm.test(\"Debería encontrar mi facherito\",()=>{\r",
+							"    pm.expect(findMyTest).to.include({\"native\": \"😎\"});\r",
+							"});\r",
+							"\r",
+							"console.log(findMyTest);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dom}}/emoji",
+					"host": [
+						"{{dom}}"
+					],
+					"path": [
+						"emoji"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CLASE API AL GRANO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//NEXT CLASS: EL Assertion \".include\"\r",
+							"const body = pm.response.json();\r",
+							"const ActualResult = body.trello[1]\r",
+							"\r",
+							"const id = \"1F601\"\r",
+							"const name = \"GRINNING FACE WITH SMILING EYES\"\r",
+							"const emoji = \"😁\"\r",
+							"const short = \"grin\"\r",
+							"const myTest = {\r",
+							"    \"unified\": id,\r",
+							"    \"name\": name,\r",
+							"    \"native\": emoji,\r",
+							"    \"shortName\": short\r",
+							"};\r",
+							"pm.test(\"Debería contener un valor dentro del objeto\",()=>{\r",
+							"    pm.expect(ActualResult).to.include(myTest)\r",
+							"});\r",
+							"\r",
+							"const findMyTest = body.trello.find(i=>i.native===\"😎\")\r",
+							"\r",
+							"pm.test(\"Debería encontrar mi facherito\",()=>{\r",
+							"    pm.expect(findMyTest).to.include({\"native\": \"😎\"});\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"// antes de hacer TESTING:\r",
+							"// QUÉ PROPIEDADES TIENE EL JSON que recibiré.\r",
+							"\r",
+							"console.log(findMyTest);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{dom}}/emoji",
+					"host": [
+						"{{dom}}"
+					],
+					"path": [
+						"emoji"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "list",
+			"value": "6261fa1dd731ab71a053f0fc",
+			"type": "string"
+		}
+	]
+}
