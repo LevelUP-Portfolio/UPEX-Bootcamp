@@ -1,0 +1,28 @@
+name: US 5773 | TX | API-Trello | Cards | Crear, Modificar, Mover y Borrar Tarjetas de un Tablero
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  US-5773-TX-trelloAPI-cards:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Github Action
+        uses: actions/checkout@master
+      - name: Newman Run - Postman Collection
+        uses: matt-ball/newman-action@v1.0.4
+        with:
+          apiKey: ${{ secrets.MY_API_POSTMAN }}
+          collection: 20549885-69fa6280-2b36-4858-8683-2ae902e26459
+          environment: 20549885-fc579da8-f078-4b10-b4d2-cba239f24789
+          reporters: '["junit"]'
+      - name: xray-action
+        uses: mikepenz/xray-action@v2.4.0
+        with:
+          username: ${{ secrets.MY_XRAY_ID }}
+          password: ${{ secrets.MY_XRAY_SECRET }}
+          testFormat: "junit"
+          testPaths: "newman/*.xml"
+          testExecKey: "UPEX-5838"
+          projectKey: "UPEX"
