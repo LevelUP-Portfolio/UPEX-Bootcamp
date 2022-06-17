@@ -1,0 +1,19 @@
+{
+  "name": "upexcypress",
+  "version": "1.0.0",
+  "description": "This is the Elyer's UPEX-Cypress Workspace",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress open"
+  },
+  "keywords": [
+    "upex",
+    "cypress",
+    "testing"
+  ],
+  "author": "Elyer Maldonado",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^10.1.0"
+  }
+}
